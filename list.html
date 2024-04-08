@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello Vue To Do List</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+<div id="app">
+    <h1>Task list</h1>
+    <h2>Enter new task</h2>
+    <label>Please enter your to-do task</label>
+    <input v-model="newTask">
+    <button v-on:click="addTask">Add task</button>
+    <li v-for="task in taskList">
+<!--        essentially a vue 'for loop'-->
+        {{task}}
+    </li>
+
+</div>
+
+<script>
+    const {createApp, ref} = Vue
+    createApp({
+        setup(){
+            const taskList = ref(['Water plants', 'Pay phone bill', 'Wash dishes'])
+            const newTask = ref('')
+            function addTask() {
+                //add newtask to the taskList
+                if (newTask.value) {
+                taskList.value.push(newTask.value)
+                //adds the new task to the list
+                    //if statement is validating that it isn't an empty string
+                }
+            }
+
+            return{
+                taskList,
+                newTask,
+                addTask
+            }
+        }
+    }).mount('#app')
+    //same setup as the hello.html
+
+</script>
+</body>
+</html>

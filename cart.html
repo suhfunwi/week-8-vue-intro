@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello Vue forms</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <style>
+        th, td{
+            width: 25%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+
+    <table>
+        <tr>
+            <th>Item</th>
+            <th>Unit Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+        </tr>
+        <tr>
+            <td>{{name}}</td>
+            <td>{{unitPrice}}</td>
+            <td><input type="number" v-model="quantity"></td>
+<!--            allows the user to input the quantity of the item-->
+            <td>{{total}}</td>
+        </tr>
+    </table>
+</div>
+
+<script>
+    const {createApp, ref, computed} = Vue
+    createApp({ //reactive data below
+        setup(){
+            const name = ref('Hat')
+            const quantity = ref(1)
+            const unitPrice = ref(54.99)
+            const total = computed(function (){
+                const totalPrice = unitPrice.value * quantity.value
+                const formattedPrice = totalPrice.toFixed(2)
+                return formattedPrice
+                //calculates the total formatted price of the shopping cart
+            })
+
+
+            return{
+                name,
+                quantity,
+                unitPrice,
+                total
+
+            }
+        }
+    }).mount('#app')
+    //same setup as the hello.html
+
+</script>
+</body>
+</html>

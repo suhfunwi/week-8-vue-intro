@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello Vue</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+<!--adds vue to the webpage-->
+</head>
+<body>
+<div id="app">
+<!--vue will manage all the html here-->
+<!--in vue dev tools, root is this div-->
+    <h1>Hello Vue!</h1>
+<!--    <p>{{message}}</p>-->
+<!--    commented out because computed uses slightly different method-->
+    <p>{{messageWithExclamationPoints}}</p>
+    <button v-on:click="addExclamationPoints">Add exclamation points</button>
+<!--    Vue event handler-->
+    <button v-on:click="clearExclamationPoints">Clear</button>
+
+</div>
+
+<script>
+    //set up vue app
+
+    const {createApp, ref, computed} = Vue
+//     imports these things from the Vue library into the code
+    //computed computes data, it is also reactive
+    createApp({
+        setup() {
+        //     define things vue app needs
+            //in vue dev tools, this shows up as setup
+            //can also modify data directly from vue dev tools
+
+            const message = ref('YERRRRRR!')
+            //const means constant, meaning the variable can't be changed in this code,
+            // but we can replace it with a new message with '.value' which makes the code work
+            const numberOfExclamationPoints = ref(1)
+            function addExclamationPoints (){
+                if (numberOfExclamationPoints.value < 10) {
+                    //message.value = message.value + '!'
+                    numberOfExclamationPoints.value++
+                    //standard javascript will still work, this just limits the
+                    //exclamation points to 10
+                    //code commented out because there is a different method when importing computed
+                }else {
+                    alert('No more exclamation points!')
+                }
+            }
+            function clearExclamationPoints(){
+                numberOfExclamationPoints.value = 1
+                //message.value = 'YERRRRRR!!'
+                //clearing the extra exclamation points
+                //code commented out because there is a different method when importing computed
+
+            }
+            const messageWithExclamationPoints = computed(function (){
+                let computedMessage = message.value
+                //add ! based on numberOfExclamationPoints
+                for (let x = 0; x < numberOfExclamationPoints.value; x++){
+                    computedMessage = computedMessage +'!'
+                }
+                return computedMessage
+
+            })
+            return{
+                message,
+                numberOfExclamationPoints,
+                messageWithExclamationPoints,
+                addExclamationPoints,
+                clearExclamationPoints
+                //don't forget to add the functions to the return value
+            }
+
+        }
+    }).mount('#app')
+//     connects the vue app with the html
+
+
+</script>
+</body>
+</html>

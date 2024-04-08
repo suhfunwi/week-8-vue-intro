@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hello Vue forms</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+<div id="app">
+    <label> Please enter your name:</label>
+    <input v-model="name">
+    <p v-if="name">Thanks, your name is {{name}}</p>
+<!--  if statement,  paragraph won't appear until there's a name-->
+    <p v-else>Awaiting user input...</p>
+<!--    else statement, also doesn't have to be a paragraph-->
+    <button v-on:click="clearName">Clear</button>
+<!--    clear the name entered-->
+
+</div>
+
+<script>
+    const {createApp, ref} = Vue
+    createApp({
+        setup(){
+            const name = ref('') //empty string
+
+            function clearName(){
+                name.value = ''
+            }
+
+            return{
+                name,
+                clearName
+            }
+        }
+    }).mount('#app')
+    //same setup as the hello.html
+
+</script>
+</body>
+</html>
